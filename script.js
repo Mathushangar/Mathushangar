@@ -3,110 +3,162 @@ const nav = document.querySelector('nav');
 const navLinks = [...document.querySelectorAll('nav a')];
 const year = document.querySelector('#year');
 
-if (year) year.textContent = new Date().getFullYear();
+// Automatically update copyright year
+if (year) {
+  year.textContent = new Date().getFullYear();
+}
+
+
+// ===============================
+// MOBILE MENU
+// ===============================
 
 menuButton?.addEventListener('click', () => {
   const isOpen = nav.classList.toggle('open');
+
   menuButton.setAttribute('aria-expanded', String(isOpen));
   menuButton.textContent = isOpen ? 'Close' : 'Menu';
 });
 
-navLinks.forEach(link => link.addEventListener('click', () => {
-  nav.classList.remove('open');
-  menuButton?.setAttribute('aria-expanded', 'false');
 
-  if (menuButton) {
-    menuButton.textContent = 'Menu';
-  }
-}));
+// Close mobile menu after clicking a navigation link
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    nav.classList.remove('open');
 
-// Reveal content as it enters the viewport
-const revealObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('visible');
-      revealObserver.unobserve(entry.target);
+    menuButton?.setAttribute('aria-expanded', 'false');
+
+    if (menuButton) {
+      menuButton.textContent = 'Menu';
     }
   });
-}, {
-  threshold: 0.12
 });
 
-document.querySelectorAll('.reveal').forEach(el => {
-  revealObserver.observe(el);
-});
 
-// Highlight the navigation link for the section currently being viewed
-const sectionObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
+// ===============================
+// REVEAL ANIMATION
+// ===============================
 
-    navLinks.forEach(link => {
-      link.classList.toggle(
-        'active',
-        link.getAttribute('href') === `#${entry.target.id}`
-      );
+const revealObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
     });
-  });
-}, {
-  rootMargin: '-35% 0px -55% 0px'
+  },
+  {
+    threshold: 0.12
+  }
+);
+
+
+// Find every element with class "reveal"
+document.querySelectorAll('.reveal').forEach(element => {
+  revealObserver.observe(element);
 });
 
+
+// ===============================
+// ACTIVE NAVIGATION LINK
+// ===============================
+
+const sectionObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+
+      navLinks.forEach(link => {
+        link.classList.toggle(
+          'active',
+          link.getAttribute('href') === `#${entry.target.id}`
+        );
+      });
+    });
+  },
+  {
+    rootMargin: '-35% 0px -55% 0px'
+  }
+);
+
+
+// Watch all sections that have IDs
 document.querySelectorAll('main section[id]').forEach(section => {
   sectionObserver.observe(section);
 });
 
-// Animate impact numbers
+
+// ===============================
+// ANIMATED IMPACT NUMBERS
+// ===============================
+
 const counters = document.querySelectorAll('[data-count]');
 
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
+const counterObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
 
-    const el = entry.target;
-    const target = Number(el.dataset.count);
-    const suffix = el.dataset.suffix || '';
+      const element = entry.target;
 
-    const start = performance.now();
-    const duration = 1300;
+      const target = Number(element.dataset.count);
+      const suffix = element.dataset.suffix || '';
 
-    const tick = now => {
-      const progress = Math.min((now - start) / duration, 1);
+      const start = performance.now();
+      const duration = 1300;
 
-      const eased = 1 - Math.pow(1 - progress, 3);
+      const tick = now => {
+        const progress = Math.min(
+          (now - start) / duration,
+          1
+        );
 
-      el.textContent =
-        `${Math.round(target * eased)}${suffix}`;
+        // Makes the animation slow down naturally
+        const eased =
+          1 - Math.pow(1 - progress, 3);
 
-      if (progress < 1) {
-        requestAnimationFrame(tick);
-      }
-    };
+        element.textContent =
+          `${Math.round(target * eased)}${suffix}`;
 
-    requestAnimationFrame(tick);
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        }
+      };
 
-    counterObserver.unobserve(el);
-  });
-}, {
-  threshold: 0.5
-});
+      requestAnimationFrame(tick);
+
+      counterObserver.unobserve(element);
+    });
+  },
+  {
+    threshold: 0.5
+  }
+);
+
 
 counters.forEach(counter => {
   counterObserver.observe(counter);
 });
 
-// Filter insight cards
+
+// ===============================
+// INSIGHTS FILTER
+// ===============================
+
 const filterButtons =
   document.querySelectorAll('[data-filter]');
 
 const insightCards =
   document.querySelectorAll('.insight-card');
 
+
 filterButtons.forEach(button => {
   button.addEventListener('click', () => {
 
     const filter = button.dataset.filter;
 
+    // Change selected filter button
     filterButtons.forEach(btn => {
       btn.classList.toggle(
         'selected',
@@ -114,38 +166,49 @@ filterButtons.forEach(button => {
       );
     });
 
+
+    // Show/hide insight cards
     insightCards.forEach(card => {
 
-      const show =
+      const shouldShow =
         filter === 'all' ||
         card.dataset.category === filter;
 
-      card.hidden = !show;
-
+      card.hidden = !shouldShow;
     });
+
   });
 });
 
-// Reading / page scroll progress bar
-const progress =
+
+// ===============================
+// PAGE SCROLL PROGRESS BAR
+// ===============================
+
+const progressBar =
   document.querySelector('.scroll-progress');
 
-window.addEventListener('scroll', () => {
 
-  const max =
-    document.documentElement.scrollHeight -
-    innerHeight;
+window.addEventListener(
+  'scroll',
+  () => {
 
-  const percent =
-    max > 0
-      ? (scrollY / max) * 100
-      : 0;
+    const maximumScroll =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
 
-  if (progress) {
-    progress.style.width =
-      `${percent}%`;
+    const percentage =
+      maximumScroll > 0
+        ? (window.scrollY / maximumScroll) * 100
+        : 0;
+
+    if (progressBar) {
+      progressBar.style.width =
+        `${percentage}%`;
+    }
+
+  },
+  {
+    passive: true
   }
-
-}, {
-  passive: true
-});
+);
