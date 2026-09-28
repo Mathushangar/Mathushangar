@@ -9,6 +9,11 @@
   --max: 1380px;
 }
 
+
+/* ========================================
+   RESET
+======================================== */
+
 * {
   box-sizing: border-box;
 }
@@ -32,9 +37,9 @@ body::selection {
 }
 
 
-/* =========================
+/* ========================================
    SCROLL PROGRESS
-========================= */
+======================================== */
 
 .scroll-progress {
   position: fixed;
@@ -47,31 +52,36 @@ body::selection {
 }
 
 
-/* =========================
+/* ========================================
    HEADER
-========================= */
+======================================== */
 
 header {
   height: 86px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 0 max(6vw, calc((100vw - var(--max)) / 2));
+
   border-bottom: 1px solid var(--line);
+
   position: sticky;
   top: 0;
+
   background: rgba(247, 244, 238, 0.92);
   backdrop-filter: blur(14px);
+
   z-index: 10;
 }
 
 .brand {
+  font-size: 15px;
   font-weight: 800;
   letter-spacing: 0.08em;
   text-decoration: none;
   color: inherit;
   line-height: 1.15;
-  font-size: 15px;
 }
 
 .brand span {
@@ -83,9 +93,9 @@ header {
 }
 
 
-/* =========================
+/* ========================================
    NAVIGATION
-========================= */
+======================================== */
 
 nav {
   display: flex;
@@ -109,11 +119,15 @@ nav a {
 nav a::after {
   content: "";
   position: absolute;
+
   left: 0;
   right: 100%;
   bottom: 23px;
+
   height: 2px;
+
   background: var(--accent);
+
   transition: 0.25s;
 }
 
@@ -127,9 +141,9 @@ nav a.active::after {
 }
 
 
-/* =========================
+/* ========================================
    GENERAL SECTIONS
-========================= */
+======================================== */
 
 section {
   padding: 110px max(8vw, calc((100vw - var(--max)) / 2));
@@ -148,9 +162,9 @@ section {
 }
 
 
-/* =========================
+/* ========================================
    TYPOGRAPHY
-========================= */
+======================================== */
 
 h1,
 h2 {
@@ -193,23 +207,36 @@ em {
 }
 
 
-/* =========================
+/* ========================================
    HERO
-========================= */
+======================================== */
 
 .hero {
   min-height: calc(100vh - 86px);
+
   display: grid;
-  grid-template-columns: 1.15fr 0.7fr;
-  gap: 8vw;
+  grid-template-columns: minmax(0, 1fr) minmax(400px, 0.82fr);
+
+  gap: 60px;
+
   align-items: center;
-  padding-top: 75px;
-  padding-bottom: 75px;
+
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+
+.hero-copy {
+  min-width: 0;
 }
 
 .hero-copy > p:not(.eyebrow) {
-  max-width: 760px;
+  max-width: 700px;
 }
+
+
+/* ========================================
+   HERO ACTIONS
+======================================== */
 
 .actions {
   display: flex;
@@ -220,12 +247,18 @@ em {
 
 .primary {
   display: inline-block;
+
   background: var(--ink);
   color: white !important;
+
   padding: 15px 23px;
+
   text-decoration: none;
   font-weight: 700;
-  transition: transform 0.2s, box-shadow 0.2s;
+
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
 }
 
 .primary:hover {
@@ -245,59 +278,84 @@ em {
 .mini-proof {
   display: flex;
   gap: 30px;
+
   margin-top: 52px;
   padding-top: 20px;
+
   border-top: 1px solid var(--line);
+
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.04em;
+
   color: var(--muted);
 }
 
 
-/* =========================
+/* ========================================
    HERO PORTRAIT
-========================= */
+======================================== */
 
 .portrait-wrap {
   position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  justify-self: end;
 }
 
 .photo {
-  aspect-ratio: 4 / 5;
+  width: 100%;
+  height: 620px;
+
   overflow: hidden;
+
   background: #000;
+
   box-shadow: 18px 18px 0 rgba(181, 101, 59, 0.12);
 }
 
 .photo img {
   width: 100%;
   height: 100%;
+
   display: block;
 
-  /*
-    Cover the portrait container while focusing
-    on Mathushangar's position in the source photo.
-  */
   object-fit: cover;
-  object-position: 75% center;
+
+  /*
+    The original image has empty space on the left
+    and Mathushangar on the right.
+  */
+  object-position: right center;
 }
 
 .portrait-note {
   position: absolute;
-  left: -50px;
-  bottom: 35px;
-  background: var(--paper);
-  width: 250px;
+
+  left: -35px;
+  bottom: 30px;
+
+  width: 245px;
+
   padding: 22px;
+
+  background: var(--paper);
+
   border: 1px solid var(--line);
+
+  z-index: 2;
 }
 
 .portrait-note small {
   display: block;
+
   color: var(--accent);
+
   font-weight: 800;
   letter-spacing: 0.15em;
+
   margin-bottom: 8px;
 }
 
@@ -308,9 +366,9 @@ em {
 }
 
 
-/* =========================
+/* ========================================
    DARK SECTION
-========================= */
+======================================== */
 
 .dark {
   background: var(--ink);
@@ -324,44 +382,62 @@ em {
 .twocol {
   display: grid;
   grid-template-columns: 1fr 1fr;
+
   gap: 9vw;
+
   font-size: 19px;
+
   margin-top: 42px;
 }
 
 .dark blockquote,
 .impact blockquote {
   font-family: Georgia, serif;
+
   font-size: clamp(26px, 3vw, 42px);
   line-height: 1.25;
+
   margin: 35px 0;
+
   border-left: 3px solid var(--accent);
+
   padding-left: 25px;
 }
 
 
-/* =========================
+/* ========================================
    CARDS
-========================= */
+======================================== */
 
 .cards {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 1px;
+
   background: var(--line);
+
   margin-top: 55px;
+
   border: 1px solid var(--line);
 }
 
 .cards article {
   background: var(--paper);
+
   padding: 40px;
-  transition: transform 0.25s, background 0.25s;
+
+  transition:
+    transform 0.25s,
+    background 0.25s;
 }
 
 .cards article:hover {
   background: #fff;
+
   transform: translateY(-6px);
+
   z-index: 1;
 }
 
@@ -380,9 +456,9 @@ em {
 }
 
 
-/* =========================
+/* ========================================
    IKIGAI
-========================= */
+======================================== */
 
 .ikigai {
   background: var(--soft);
@@ -390,15 +466,21 @@ em {
 
 .grid4 {
   display: grid;
+
   grid-template-columns: repeat(2, 1fr);
+
   gap: 1px;
+
   background: #cfc8bb;
+
   margin-top: 50px;
 }
 
 .grid4 div {
   background: var(--soft);
+
   padding: 35px;
+
   transition: background 0.2s;
 }
 
@@ -408,34 +490,44 @@ em {
 
 .grid4 small {
   display: block;
+
   color: var(--accent);
+
   font-weight: bold;
   letter-spacing: 0.1em;
+
   margin-bottom: 10px;
 }
 
 .grid4 strong {
   font-family: Georgia, serif;
+
   font-size: 24px;
   line-height: 1.3;
 }
 
 
-/* =========================
+/* ========================================
    TIMELINE
-========================= */
+======================================== */
 
 .timeline {
   border-top: 1px solid var(--line);
+
   margin-top: 55px;
 }
 
 .timeline > div {
   display: grid;
+
   grid-template-columns: 150px 1fr 1.5fr;
+
   gap: 30px;
+
   padding: 34px 0;
+
   border-bottom: 1px solid var(--line);
+
   transition: padding 0.2s;
 }
 
@@ -453,9 +545,9 @@ em {
 }
 
 
-/* =========================
+/* ========================================
    IMPACT
-========================= */
+======================================== */
 
 .impact {
   background: white;
@@ -468,19 +560,25 @@ em {
 
 .stats {
   display: grid;
+
   grid-template-columns: repeat(4, 1fr);
+
   gap: 24px;
+
   margin: 60px 0;
 }
 
 .stats div {
   border-top: 2px solid var(--ink);
+
   padding-top: 18px;
 }
 
 .stats strong {
   display: block;
+
   font-family: Georgia, serif;
+
   font-size: 52px;
   font-weight: 500;
 }
@@ -490,45 +588,66 @@ em {
 }
 
 
-/* =========================
-   INSIGHTS
-========================= */
+/* ========================================
+   FILTERS
+======================================== */
 
 .filters {
   display: flex;
   flex-wrap: wrap;
+
   gap: 10px;
+
   margin: 36px 0 30px;
 }
 
 .filters button {
   font: inherit;
+
   font-size: 13px;
+
   border: 1px solid var(--line);
+
   background: transparent;
+
   padding: 9px 17px;
+
   border-radius: 30px;
+
   cursor: pointer;
 }
 
 .filters button.selected,
 .filters button:hover {
   background: var(--ink);
+
   border-color: var(--ink);
+
   color: #fff;
 }
 
+
+/* ========================================
+   INSIGHTS
+======================================== */
+
 .insight-grid {
   display: grid;
+
   grid-template-columns: repeat(3, 1fr);
+
   gap: 18px;
 }
 
 .insight-card {
   border: 1px solid var(--line);
+
   padding: 32px;
+
   background: #fff;
+
   min-height: 285px;
+
   display: flex;
   flex-direction: column;
 }
@@ -539,6 +658,7 @@ em {
 
 .insight-card small {
   color: var(--accent);
+
   font-weight: 800;
   letter-spacing: 0.08em;
 }
@@ -553,13 +673,15 @@ em {
 }
 
 
-/* =========================
-   CONTACT SECTION
-========================= */
+/* ========================================
+   CONTACT
+======================================== */
 
 .connect {
   text-align: left;
+
   background: var(--ink);
+
   color: var(--white);
 }
 
@@ -569,7 +691,6 @@ em {
 
 .connect h2,
 .connect p {
-  max-width: none;
   margin-left: 0;
   margin-right: 0;
 }
@@ -578,69 +699,126 @@ em {
   color: #d98a5e;
 }
 
+
+/* Contact intro */
+
 .connect-intro {
+  width: 100%;
   max-width: 900px;
-  margin-bottom: 55px;
+
+  margin: 0 0 55px;
+}
+
+.connect-intro h2 {
+  max-width: 900px;
 }
 
 .connect-intro .lead {
+  max-width: 780px;
+
   color: #d8ddd9;
-  max-width: 800px;
 }
+
+
+/* Contact layout */
 
 .contact-layout {
+  width: 100%;
+
   display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  gap: 8vw;
+
+  grid-template-columns:
+    minmax(280px, 0.8fr)
+    minmax(0, 1.2fr);
+
+  gap: 70px;
+
   align-items: start;
-  border-top: 1px solid rgba(255, 255, 255, 0.18);
+
   padding-top: 45px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
 }
 
+
+/* Left contact column */
+
 .contact-copy {
-  max-width: 500px;
+  width: 100%;
+  max-width: 450px;
 }
 
 .contact-kicker {
+  display: block;
+
   font-size: 11px;
   font-weight: 800;
+
   letter-spacing: 0.18em;
+
   color: #d98a5e;
+
+  margin-bottom: 10px;
 }
 
 .contact-copy h3 {
   font-family: Georgia, serif;
+
   font-size: clamp(30px, 3vw, 44px);
+
   font-weight: 500;
-  margin: 0.25em 0 0.5em;
+  line-height: 1.15;
+
+  margin: 0 0 18px;
 }
 
 .contact-copy p {
+  margin: 0;
+
   color: #c9cfcb;
 }
 
 .contact-note {
   padding-top: 20px;
+
   margin-top: 24px;
+
   border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
+
+/* Contact cards */
+
 .contact-options {
+  width: 100%;
+
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+
+  gap: 14px;
 }
 
 .contact-card {
-  min-height: 155px;
-  padding: 24px;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  color: #fff;
-  text-decoration: none;
   position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  min-height: 160px;
+
+  padding: 25px;
+
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  color: #fff;
+
+  text-decoration: none;
+
   transition:
     transform 0.2s,
     background 0.2s,
@@ -649,32 +827,45 @@ em {
 
 .contact-card:hover {
   transform: translateY(-4px);
+
   background: rgba(255, 255, 255, 0.07);
+
   border-color: rgba(255, 255, 255, 0.42);
 }
 
 .contact-label {
   position: absolute;
+
   top: 22px;
-  left: 24px;
+  left: 25px;
+
   font-size: 10px;
   font-weight: 800;
+
   letter-spacing: 0.16em;
+
   color: #d98a5e;
 }
 
 .contact-card strong {
+  display: block;
+
+  max-width: calc(100% - 35px);
+
   font-size: 15px;
-  line-height: 1.35;
-  padding-right: 28px;
+  line-height: 1.4;
+
   overflow-wrap: anywhere;
 }
 
 .contact-arrow {
   position: absolute;
+
   right: 22px;
-  bottom: 21px;
+  bottom: 22px;
+
   font-size: 20px;
+
   transition: transform 0.2s;
 }
 
@@ -683,59 +874,83 @@ em {
 }
 
 
-/* =========================
+/* ========================================
    FOOTER
-========================= */
+======================================== */
 
 .site-footer {
   display: block;
+
   padding: 0 max(6vw, calc((100vw - var(--max)) / 2));
+
   background: #111814;
+
   color: #eef1ee;
+
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-main {
   display: grid;
+
   grid-template-columns: 2fr 1fr 1fr;
+
   gap: 70px;
+
   padding: 64px 0 52px;
 }
 
 .footer-brand a {
   color: #fff;
+
   text-decoration: none;
+
   font-weight: 800;
+
   letter-spacing: 0.1em;
+
   font-size: 17px;
 }
 
 .footer-brand p {
   max-width: 410px;
+
   margin: 18px 0 0;
+
   color: #aeb7b1;
+
   font-family: Georgia, serif;
+
   font-size: 20px;
+
   line-height: 1.5;
 }
 
 .footer-nav {
   display: flex;
+
   flex-direction: column;
+
   gap: 10px;
 }
 
 .footer-nav span {
   color: #d98a5e;
+
   font-size: 10px;
+
   font-weight: 800;
+
   letter-spacing: 0.16em;
+
   margin-bottom: 5px;
 }
 
 .footer-nav a {
   color: #d9dfdb;
+
   text-decoration: none;
+
   width: max-content;
 }
 
@@ -745,12 +960,19 @@ em {
 
 .footer-bottom {
   display: flex;
+
   justify-content: space-between;
+
   gap: 25px;
+
   align-items: center;
+
   border-top: 1px solid rgba(255, 255, 255, 0.1);
+
   padding: 22px 0 28px;
+
   color: #89938d;
+
   font-size: 12px;
 }
 
@@ -764,17 +986,20 @@ em {
 
 .footer-bottom a {
   color: #b8c0bb;
+
   text-decoration: none;
 }
 
 
-/* =========================
+/* ========================================
    REVEAL ANIMATION
-========================= */
+======================================== */
 
 .reveal {
   opacity: 0;
+
   transform: translateY(24px);
+
   transition:
     opacity 0.7s ease,
     transform 0.7s ease;
@@ -782,13 +1007,14 @@ em {
 
 .reveal.visible {
   opacity: 1;
+
   transform: none;
 }
 
 
-/* =========================
+/* ========================================
    REDUCED MOTION
-========================= */
+======================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
@@ -798,46 +1024,61 @@ em {
 
   .reveal {
     opacity: 1;
+
     transform: none;
+
     transition: none;
   }
 
   * {
     animation: none !important;
+
     transition: none !important;
   }
 }
 
 
-/* =========================
+/* ========================================
    TABLET
-========================= */
+======================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
 
   header {
     height: 70px;
+
     padding: 0 6vw;
   }
 
   #menu {
     display: block;
+
     background: none;
+
     border: 1px solid var(--line);
+
     padding: 8px 12px;
+
     font-weight: bold;
   }
 
   nav {
     display: none;
+
     position: absolute;
+
     top: 70px;
     left: 0;
     right: 0;
+
     background: var(--paper);
+
     padding: 22px 6vw 30px;
+
     flex-direction: column;
+
     border-bottom: 1px solid var(--line);
+
     gap: 5px;
   }
 
@@ -851,22 +1092,51 @@ em {
 
   nav a::after {
     bottom: 4px;
+
     width: 35px;
+
     right: auto;
   }
 
+
+  /* Hero */
+
   .hero {
     grid-template-columns: 1fr;
+
+    gap: 50px;
+
     min-height: auto;
   }
 
   .portrait-wrap {
-    max-width: 600px;
+    width: 100%;
+
+    max-width: 700px;
+
+    margin: 0 auto;
+
+    justify-self: center;
+  }
+
+  .photo {
+    width: 100%;
+
+    height: auto;
+
+    aspect-ratio: 4 / 3;
+  }
+
+  .photo img {
+    object-position: right center;
   }
 
   .portrait-note {
     left: 20px;
   }
+
+
+  /* Main grids */
 
   .twocol,
   .cards,
@@ -888,21 +1158,33 @@ em {
     min-height: auto;
   }
 
+
+  /* Contact */
+
   .contact-layout {
     grid-template-columns: 1fr;
-    gap: 40px;
+
+    gap: 45px;
   }
+
+  .contact-copy {
+    max-width: 650px;
+  }
+
+
+  /* Footer */
 
   .footer-main {
     grid-template-columns: 1.5fr 1fr 1fr;
+
     gap: 35px;
   }
 }
 
 
-/* =========================
+/* ========================================
    MOBILE
-========================= */
+======================================== */
 
 @media (max-width: 620px) {
 
@@ -910,26 +1192,68 @@ em {
     padding: 72px 6vw;
   }
 
+
+  /* Hero */
+
   .hero {
-    padding-top: 55px;
+    display: block;
+
+    padding-top: 50px;
+    padding-bottom: 60px;
   }
 
   .hero h1 {
     font-size: clamp(52px, 17vw, 78px);
   }
 
-  .mini-proof {
-    flex-direction: column;
-    gap: 7px;
+  .portrait-wrap {
+    margin-top: 45px;
+  }
+
+  .photo {
+    width: 100%;
+
+    height: auto;
+
+    aspect-ratio: 4 / 4.5;
+  }
+
+  .photo img {
+    object-position: right center;
   }
 
   .portrait-note {
     position: relative;
+
     left: auto;
     bottom: auto;
+
     width: 100%;
+
     margin-top: 14px;
   }
+
+
+  /* Hero proof */
+
+  .mini-proof {
+    flex-direction: column;
+
+    gap: 7px;
+  }
+
+  .actions {
+    align-items: flex-start;
+
+    flex-direction: column;
+  }
+
+  .centered {
+    align-items: center;
+  }
+
+
+  /* General grids */
 
   .twocol,
   .cards,
@@ -941,6 +1265,7 @@ em {
 
   .timeline > div {
     grid-template-columns: 1fr;
+
     gap: 8px;
   }
 
@@ -948,40 +1273,59 @@ em {
     grid-column: auto;
   }
 
-  .actions {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .centered {
-    align-items: center;
-  }
-
   .stats {
     gap: 35px;
   }
 
+
+  /* Contact */
+
+  .connect-intro {
+    margin-bottom: 40px;
+  }
+
+  .contact-layout {
+    display: block;
+
+    padding-top: 35px;
+  }
+
+  .contact-copy {
+    max-width: none;
+
+    margin-bottom: 40px;
+  }
+
   .contact-options {
     grid-template-columns: 1fr;
+
+    gap: 12px;
   }
 
   .contact-card {
-    min-height: 130px;
+    min-height: 135px;
   }
+
+
+  /* Footer */
 
   .footer-main {
     grid-template-columns: 1fr;
+
     gap: 35px;
+
     padding: 48px 0 38px;
   }
 
   .footer-bottom {
     flex-direction: column;
+
     align-items: flex-start;
   }
 
   .site-footer {
     padding-left: 6vw;
+
     padding-right: 6vw;
   }
 }
